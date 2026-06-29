@@ -1,1 +1,1 @@
-# hotel-practice-bntu
+# university-schedule-system
