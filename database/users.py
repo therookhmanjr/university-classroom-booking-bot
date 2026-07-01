@@ -1,5 +1,16 @@
 from database.connection import get_connection
 
+def register_user(telegram_id: int, full_name:str):
+    connection = get_connection()
+    cursor = connection.cursor()
+
+    cursor.execute(
+        """
+            INSERT INTO Users (telegram_id, full_name, role) VALUES (?, ?, ?)
+        """, (telegram_id, full_name, "User")
+    )
+
+
 def add_user(telegram_id: int, full_name: str, role: str) -> None:
     connection = get_connection()
     cursor = connection.cursor()
