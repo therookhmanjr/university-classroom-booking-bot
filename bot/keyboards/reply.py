@@ -1,5 +1,4 @@
-from aiogram.types import KeyboardButton
-from aiogram.types import ReplyKeyboardMarkup
+from aiogram.types import KeyboardButton, ReplyKeyboardMarkup
 
 main_keyboard = ReplyKeyboardMarkup(
     keyboard=[
@@ -15,5 +14,5 @@ main_keyboard = ReplyKeyboardMarkup(
         ]
     ],
     resize_keyboard=True,
-    input_field_placeholder = "Выберите действие"
+    input_field_placeholder="Выберите действие"
 )

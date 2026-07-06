@@ -5,4 +5,4 @@ router = Router()
 
 @router.message(F.text == "📚 Предметы")
 async def subjects(message: Message):
-    await message.answer("Раздел 'Предметы' находится в разработке")
+    await message.answer("📚 Раздел «Предметы» находится в разработке.")
