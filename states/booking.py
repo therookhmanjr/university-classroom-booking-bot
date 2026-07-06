@@ -5,4 +5,5 @@ class BookingState(StatesGroup):
     choosing_start_time = State()
     choosing_end_time = State()
     choosing_classroom = State()
+    entering_purpose = State()
     confirming = State()

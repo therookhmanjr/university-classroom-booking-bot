@@ -14,7 +14,6 @@ from bot.keyboards.subjects import (
 
 router = Router()
 
-
 @router.message(F.text == "Предметы")
 @router.message(Command("subjects"))
 async def cmd_subjects(message: Message):
@@ -175,3 +174,4 @@ async def back_to_main(message: Message):
         "Главное меню:",
         reply_markup=main_menu_keyboard()
     )
+
