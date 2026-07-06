@@ -1,0 +1,11 @@
+UNIVERSITY_OPEN_TIME = "08:00"
+UNIVERSITY_CLOSE_TIME = "20:00"
+
+MAX_BOOKING_HOURS = 4
+
+AVAILABLE_CLASSROOMS = [
+    "🏫 101",
+    "🏫 102",
+    "🏫 201",
+    "🏫 315",
+]
