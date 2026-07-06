@@ -1,7 +1,8 @@
 from aiogram.types import KeyboardButton
 from aiogram.types import ReplyKeyboardMarkup
 
-main_keyboard = ReplyKeyboardMarkup(
+def main_menu_keyboard():
+    return ReplyKeyboardMarkup(
     keyboard=[
         [
             KeyboardButton(text="📅 Расписание"),
