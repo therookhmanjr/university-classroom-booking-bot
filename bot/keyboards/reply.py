@@ -17,6 +17,8 @@ main_keyboard = ReplyKeyboardMarkup(
     input_field_placeholder="Выберите действие"
 )
 
+main_menu_keyboard = main_keyboard
+
 def get_subjects_keyboard(is_admin: bool = False) -> ReplyKeyboardMarkup:
     """
     Создает клавиатуру для модуля "Предметы"

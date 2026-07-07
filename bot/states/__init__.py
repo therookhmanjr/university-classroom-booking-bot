@@ -1,2 +1,2 @@
-from .booking import BookingStates
+from .booking import BookingState
 from .subjects import SubjectStates

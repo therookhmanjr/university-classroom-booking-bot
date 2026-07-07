@@ -43,3 +43,14 @@ def get_subject_by_id(subject_id: int):
     subject = cursor.fetchone()
     connection.close()
     return subject
+
+def format_subjects_list(subjects):
+    if not subjects:
+        return "📭 Список предметов пуст"
+
+    result = "📚 Список предметов:\n\n"
+
+    for subject in subjects:
+        result += f"• {subject[1]}\n"
+
+    return result
