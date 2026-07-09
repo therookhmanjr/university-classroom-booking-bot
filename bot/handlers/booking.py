@@ -34,6 +34,15 @@ async def classrooms(message: Message):
 async def my_booking(message: Message):
     await message.answer("Раздел 'Мои заявки' находится в разработке.")
 
+@router.message(F.text == "📅 Расписание")
+async def start_booking(message: Message, state: FSMContext):
+    await state.set_state(BookingState.choosing_date)
+
+    await message.answer(
+        "Введите дату бронирования в формате ДД.ММ.ГГГГ:",
+        reply_markup=ReplyKeyboardRemove()
+    )
+
 @router.message(BookingState.choosing_date)
 async def booking_date(message: Message, state: FSMContext):
     if not is_valid_date(message.text):
