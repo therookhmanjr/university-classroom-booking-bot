@@ -16,7 +16,6 @@ from database.subjects import (
 # Создаем роутер для предметов
 router = Router()
 
-
 # Определяем состояния для FSM (машина состояний)
 class SubjectStates(StatesGroup):
     """Состояния для работы с предметами"""
@@ -83,15 +82,15 @@ async def process_subject_name(message: Message, state: FSMContext):
     subject_name = message.text.strip()
 
     # Проверяем, что название не пустое
-    if not subject_name:
+    if len(subject_name) < 2:
         await message.answer(
-            "❌ Название не может быть пустым. Попробуйте снова:"
+            "❌ Название должно содержать минимум 2 символа."
         )
         return
 
     # Добавляем предмет в БД
     try:
-        new_subject = add_subject(subject_name)
+        add_subject(subject_name)
 
         # Очищаем состояние
         await state.clear()
@@ -105,9 +104,15 @@ async def process_subject_name(message: Message, state: FSMContext):
         # Показываем обновленный список предметов
         await show_subjects(message)
 
+
     except Exception as e:
+
+        print(e)
+
         await message.answer(
-            f"❌ Произошла ошибка при добавлении предмета:\n{str(e)}"
+
+            "❌ Не удалось добавить предмет."
+
         )
 
 
@@ -191,9 +196,15 @@ async def process_delete_subject(message: Message):
                 "❌ Не удалось найти предмет для удаления"
             )
 
+
     except Exception as e:
+
+        print(e)
+
         await message.answer(
-            f"❌ Произошла ошибка при удалении предмета:\n{str(e)}"
+
+            "❌ Не удалось удалить предмет."
+
         )
 
 

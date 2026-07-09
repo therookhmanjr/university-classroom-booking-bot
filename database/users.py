@@ -10,6 +10,9 @@ def register_user(telegram_id: int, full_name:str):
         """, (telegram_id, full_name, "User")
     )
 
+    connection.close()
+    connection.commit()
+
 
 def add_user(telegram_id: int, full_name: str, role: str) -> None:
     connection = get_connection()
@@ -30,7 +33,7 @@ def get_user(telegram_id: int):
     cursor.execute("""
         SELECT * FROM Users
         WHERE telegram_id = ?
-    """, (telegram_id))
+    """, (telegram_id,))
 
     user = cursor.fetchone()
 
@@ -54,7 +57,7 @@ def delete_user(telegram_id: int) -> None:
 
     cursor.execute("""
         DELETE FROM Users WHERE telegram_id = ?
-    """, (telegram_id))
+    """, (telegram_id,))
 
     connection.commit()
     connection.close()

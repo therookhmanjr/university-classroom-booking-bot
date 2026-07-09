@@ -150,11 +150,13 @@ async def booking_confirm(message:Message, state: FSMContext):
     if message.text == "✅ Подтвердить":
         data = await state.get_data()
 
+        data["telegram_id"] = message.from_user.id
+
         create_booking(data)
 
         await message.answer(
             "✅ Заявка успешно создана.",
-            reply_markup = main_keyboard
+            reply_markup=main_keyboard
         )
 
     elif message.text == "❌ Отмена":

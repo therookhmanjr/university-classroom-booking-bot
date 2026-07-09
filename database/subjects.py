@@ -1,6 +1,7 @@
 from database.connection import get_connection
 
-def add_subject(name: str) -> None:
+
+def add_subject(name: str):
     connection = get_connection()
     cursor = connection.cursor()
 
@@ -9,40 +10,81 @@ def add_subject(name: str) -> None:
     """, (name,))
 
     connection.commit()
+
+    cursor.execute("SELECT SCOPE_IDENTITY()")
+    subject_id = int(cursor.fetchone()[0])
+
     connection.close()
+
+    return {
+        "id": subject_id,
+        "name": name
+    }
+
 
 def get_subjects():
     connection = get_connection()
     cursor = connection.cursor()
 
     cursor.execute("""
-        SELECT * FROM Subjects
+        SELECT subject_id, name
+        FROM Subjects
+        ORDER BY name
     """)
 
-    subjects = cursor.fetchall()
+    rows = cursor.fetchall()
 
     connection.close()
 
-    return subjects
+    return [
+        {
+            "id": row[0],
+            "name": row[1]
+        }
+        for row in rows
+    ]
 
-def delete_subject(subject_id: int) -> None:
+
+def delete_subject(subject_id: int):
     connection = get_connection()
     cursor = connection.cursor()
+
     cursor.execute("""
-        DELETE FROM Subjects WHERE subject_id = ?
+        DELETE FROM Subjects
+        WHERE subject_id = ?
     """, (subject_id,))
+
     connection.commit()
+
+    success = cursor.rowcount > 0
+
     connection.close()
+
+    return success
+
 
 def get_subject_by_id(subject_id: int):
     connection = get_connection()
     cursor = connection.cursor()
+
     cursor.execute("""
-        SELECT * FROM Subjects WHERE subject_id = ?
+        SELECT subject_id, name
+        FROM Subjects
+        WHERE subject_id = ?
     """, (subject_id,))
-    subject = cursor.fetchone()
+
+    row = cursor.fetchone()
+
     connection.close()
-    return subject
+
+    if row:
+        return {
+            "id": row[0],
+            "name": row[1]
+        }
+
+    return None
+
 
 def format_subjects_list(subjects):
     if not subjects:
@@ -51,6 +93,6 @@ def format_subjects_list(subjects):
     result = "📚 Список предметов:\n\n"
 
     for subject in subjects:
-        result += f"• {subject[1]}\n"
+        result += f"• {subject['name']}\n"
 
     return result
